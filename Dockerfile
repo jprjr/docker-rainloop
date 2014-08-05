@@ -1,6 +1,7 @@
 FROM jprjr/php-fpm
-
 MAINTAINER John Regan <john@jrjrtech.com>
+
+USER root
 RUN pacman -Syy --noconfirm --quiet > /dev/null
 RUN pacman -S --noconfirm --quiet --needed unzip \
     rsync > /dev/null
@@ -26,3 +27,4 @@ RUN /opt/init_data_folder.sh
 VOLUME /usr/share/webapps/rainloop
 VOLUME /var/lib/rainloop/data
 
+USER http
