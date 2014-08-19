@@ -1,0 +1,11 @@
+#!/usr/bin/env bash
+
+declare NGINX
+
+if [[ $NGINX -eq 1 ]]; then
+    exec nginx -c /etc/nginx/nginx.conf
+fi
+
+touch down
+s6-svc -d /etc/s6/nginx
+exit 0
