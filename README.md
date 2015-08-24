@@ -19,19 +19,14 @@ you should only have to do this once.
 $ docker build -t <repo name> .
 ```
 
-### Initialize data folder structure
-```
-$ docker run -v /path/to/perm/folder:/var/lib/rainloop/data --entrypoint /opt/init_data_folder.sh jprjr/rainloop
-```
-
 ### Run in foreground
 ```
 $ docker run -v /path/to/perm/folder:/var/lib/rainloop/data -p 9000 jprjr/rainloop
 ```
 
-### Run in background
+### Run with built-in NGINX
 ```
-$ docker run -d -v /path/to/perm/folder:/var/lib/rainloop/data -p 9000 jprjr/rainloop
+$ docker run -e NGINX=1 -d -v /path/to/perm/folder:/var/lib/rainloop/data -p 80 jprjr/rainloop
 ```
 
 Alternatively, you should be able to use links and data-only containers for
@@ -40,6 +35,7 @@ persistence.
 ## Exposed ports
 
 * 9000 (fastcgi port)
+* 80 (optional built-in nginx)
 
 ## Exposed volumes
 
