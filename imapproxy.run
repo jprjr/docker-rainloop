@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+
+declare IMAP_PROXY
+
+if [[ -n $IMAP_PROXY ]]; then
+    cp /etc/imapproxy.conf.default /etc/imapproxy.conf
+    sed -i "s/__PROXY_THIS_SERVER__/$IMAP_PROXY/" /etc/imapproxy.conf
+    exec in.imapproxyd -f /etc/imapproxy.conf
+fi
+
+touch down
+s6-svc -d /etc/s6/imapproxy
+exit 0
