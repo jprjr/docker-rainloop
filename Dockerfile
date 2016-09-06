@@ -15,15 +15,16 @@ open_basedir = /usr/share/webapps/rainloop/:/tmp/:/usr/share/pear/:/var/lib/rain
 RUN mkdir -p /usr/share/webapps/rainloop && \
     mkdir -p /var/lib/rainloop &&  \
     cd /usr/share/webapps/rainloop && \
-    curl -R -L -O \
-    "http://repository.rainloop.net/v1/rainloop-latest.zip" && \
+    curl -R -L -o rainloop-latest.zip $( \
+        curl -L https://api.github.com/repos/RainLoop/rainloop-webmail/releases | \
+            php -r 'echo current(array_filter(current(array_filter(json_decode(file_get_contents("php://stdin"), true), function($a){return !$a["prerelease"];}))["assets"], function($b){return preg_match("/^rainloop-community.*?zip\$/", $b["name"]);}))["browser_download_url"];' \
+    ) && \
     unzip rainloop-latest.zip && rm rainloop-latest.zip && \
     mv data /usr/share/webapps/rainloop-default-data  && \
     ln -s /var/lib/rainloop/data /usr/share/webapps/rainloop/data && \
     chown -R http:http /var/lib/rainloop && \
     chown -R http:http /usr/share/webapps && \
-    # Add symlink so that people can override certain files in the rainloop data folder (for instance, use a custom favicon) without having to worry about version numbers
-    ln -s /usr/share/webapps/rainloop/rainloop/v/* /usr/share/webapps/rainloop-latest
+    chmod -R 700 /usr/share/webapps
 
 RUN mkdir -p /etc/s6/rainloop && \
     ln -s /bin/true /etc/s6/rainloop/finish && \
