@@ -10,10 +10,6 @@ and either publish it directly or point your webserver to it as a reverse proxy.
 
 ## Usage
 
-Rainloop expects the data folder to have a certain layout. I've made a small
-script to setup the data folder structure at `/opt/init_data_folder.sh` -
-you should only have to do this once.
-
 ### Build
 
 ```
