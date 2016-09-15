@@ -33,7 +33,7 @@ persistence.
 
 ### Starting the IMAP proxy
 
-Many webmail clients, including rainloop, have a common problem where they connect and disconnect from IMAP all the time, instead of keeping a persistent connection open. This happens mainly because rainloop is a PHP-based web application, and it doesn't currently support push (RainLoop/rainloop-webmail#215). If you don't want to agitate your IMAP server by repeatedly connecting to it (or if is spamming your log file), a simple solution is an IMAP proxy. One is included in this container, and setting it up is as simple as setting the IMAP_PROXY environment variable and pointing it to the IMAP server you want to connect to:
+Many webmail clients, including rainloop, have a common problem where they connect and disconnect from IMAP all the time, instead of keeping a persistent connection open. This happens mainly because rainloop is a PHP-based web application, and it doesn't currently support push ([RainLoop/rainloop-webmail#215](https://github.com/RainLoop/rainloop-webmail/issues/215)). If you don't want to agitate your IMAP server by repeatedly connecting to it (or if is spamming your log file), a simple solution is an IMAP proxy. One is included in this container, and setting it up is as simple as setting the IMAP_PROXY environment variable and pointing it to the IMAP server you want to connect to:
 
 ```
 $ docker run -e IMAP_PROXY=mail.example.com -d -v /path/to/perm/folder:/var/lib/rainloop/data jprjr/rainloop
